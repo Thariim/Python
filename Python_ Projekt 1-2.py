@@ -92,8 +92,7 @@ else:
     for index in sorted(pocty.items()):
          mezera="  "
          print(
-            f"{mezera[:-len(str(index[0]))]}
-            {index[0]}|{"*"*index[1]:15}|{(index[1])}",
+            f"{mezera[:-len(str(index[0]))]}{index[0]}|{"*"*index[1]:15}|{(index[1])}",
             sep="\n"
             )   
         

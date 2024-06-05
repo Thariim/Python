@@ -89,23 +89,24 @@ else:
         else:
             pocty[len(word.strip(','))]+=1
    
-    for index in sorted(pocty.items()):
-         mezera="  "
-         print(
-            f"{mezera[:-len(str(index[0]))]}{index[0]}|{"*"*index[1]:15}|{(index[1])}",
-            sep="\n"
-            )   
+    for index,tupl in sorted(pocty.items()):
+         if index<=9:
+             print(
+                f" {index}|{"*"*tupl:15}|{(tupl)}",
+                sep="\n"
+                )
+         else:
+             print(
+                    f"{index}|{"*"*tupl:15}|{(tupl)}",
+                    sep="\n"
+                    )
         
+                
+                
+            
+                
             
             
-
-    
-
-
-
-
-
-    
-    
-
-
+             
+            
+        

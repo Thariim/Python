@@ -31,69 +31,80 @@ other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.'''
 ]
-oddelovac="-"*40
+
+separator="-"*40
 user_name=input('username:')
 user_password=input('password:')
 users={'bob':'123','ann':'pass132','mike':'password123','liz':'pass123'}
 
+#Přihlášení
 if users.get(user_name)==user_password:
-    print(oddelovac,
+    print(separator,
           f'Welcome to the app, {user_name} \nWe have 3 texts to be analyzed.',
-          oddelovac, sep='\n'
+          separator, sep='\n'
           )
 else:
     print('unregistered user, terminating the program..')
     exit()
-selection=int(input('Enter a number btw. 1 and 3 to select: '))
-seznam={1:TEXTS[0] , 2:TEXTS[1] , 3:TEXTS[2]}
-rozsah=1,2,3
-if selection not in rozsah:
-    print('unregistered user, terminating the program..')
-    exit()
+
+#Výběr textu  
+roster={}
+while len(roster)<len(TEXTS):
+    roster[len(roster)+1]=TEXTS[len(roster)]
+array=len(TEXTS) 
+selection=(input(f'Enter a number btw. 1 and {array} to select: '))
+
+#Zarućení že se jedná jenom o číslo
+while not selection.isnumeric():
+    selection=input("Input has to be number. Please try again: ")
+
+#Zaručení že číslo je v rozsahu
+while int(selection)>array:
+    selection=input('No text was selected. Please pick number in defined range: ')   
 else:
-    print(oddelovac)
-    i=seznam[selection]
-    s=(i.split())
+    print(separator)
+    picked_text=roster[int(selection)]
+    text_list=(picked_text.split())
     capital=0
     upper=0
     lower=0
     numbers=0
     sum_num=0
     
-    for slovo in s:
-        if slovo[0].isupper():
-            capital+=1
-        elif slovo.isupper():
+    for word in text_list:
+        if word.isupper() and word.isalpha():
+            print(word)
             upper+=1
-        elif slovo.islower():
+        elif word[0].isupper() and word.isalpha():
+            capital+=1
+        elif word.islower() and word.isalpha():
             lower+=1
-        elif slovo.isdecimal():
+        elif word.isdecimal():
             numbers+=1
-            sum_num+=int(slovo)
+            sum_num+=int(word)
 
-    print(f'There are {len(s)} words in the selected text.\n'
+    print(f'There are {len(text_list)} words in the selected text.\n'
         f'There are {capital} titlecase words.\n'
         f'There are {upper} uppercase words.\n'
         f'There are {lower} lowercase words.\n'
         f'There are {numbers} numeric strings.\n'
         f'The sum of all the numbers {sum_num}',
-        oddelovac,'LEN|  OCCURENCES  |NR.',oddelovac,
+        separator,'LEN|  OCCURENCES  |NR.',separator,
         sep="\n"
         )
  
     
-    pocty={}
-    for word in s:
-        if len(word.strip(',')) not in pocty:
-            pocty[len(word.strip(','))]=1
+    nums={}
+    for word in text_list:
+        if len(word.strip(',')) not in nums:
+            nums[len(word.strip(','))]=1
         else:
-            pocty[len(word.strip(','))]+=1
+            nums[len(word.strip(','))]+=1
    
-    for index in sorted(pocty.items()):
-         mezera="  "
+    for index in sorted(nums.items()):
+         spacer="  "
          print(
-            f"{mezera[:-len(str(index[0]))]}
-            {index[0]}|{"*"*index[1]:15}|{(index[1])}",
+            f"{spacer[:-len(str(index[0]))]}{index[0]}|{"*"*index[1]:15}|{(index[1])}",
             sep="\n"
             )   
         
@@ -108,5 +119,3 @@ else:
 
     
     
-
-

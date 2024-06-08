@@ -71,42 +71,42 @@ else:
     numbers=0
     sum_num=0
     
-    for word in text_list:
-        if word.isupper() and word.isalpha():
-            print(word)
+for word in text_list:
+    if word.isupper() and word.isalpha():
             upper+=1
-        elif word[0].isupper() and word.isalpha():
+    elif word[0].isupper() and word.isalpha():
             capital+=1
-        elif word.islower() and word.isalpha():
+    elif word.islower() and word.isalpha():
             lower+=1
-        elif word.isdecimal():
+    elif word.isdecimal():
             numbers+=1
             sum_num+=int(word)
 
-    print(f'There are {len(text_list)} words in the selected text.\n'
-        f'There are {capital} titlecase words.\n'
-        f'There are {upper} uppercase words.\n'
-        f'There are {lower} lowercase words.\n'
-        f'There are {numbers} numeric strings.\n'
-        f'The sum of all the numbers {sum_num}',
-        separator,'LEN|  OCCURENCES  |NR.',separator,
-        sep="\n"
-        )
+#Výpis výsledku
+print(f'There are {len(text_list)} words in the selected text.\n'
+    f'There are {capital} titlecase words.\n'
+    f'There are {upper} uppercase words.\n'
+    f'There are {lower} lowercase words.\n'
+    f'There are {numbers} numeric strings.\n'
+    f'The sum of all the numbers {sum_num}',
+    separator,'LEN|  OCCURENCES  |NR.',separator,
+    sep="\n"
+    )
  
-    
-    nums={}
-    for word in text_list:
+#Výpis statistiky   
+nums={}
+for word in text_list:
         if len(word.strip(',')) not in nums:
             nums[len(word.strip(','))]=1
         else:
             nums[len(word.strip(','))]+=1
    
-    for index in sorted(nums.items()):
-         spacer="  "
-         print(
-            f"{spacer[:-len(str(index[0]))]}{index[0]}|{"*"*index[1]:15}|{(index[1])}",
-            sep="\n"
-            )   
+for index in sorted(nums.items()):
+    spacer="  "
+    print(
+        f"{spacer[:-len(str(index[0]))]}{index[0]}|{"*"*index[1]:15}|{(index[1])}",
+        sep="\n"
+        )   
         
             
             

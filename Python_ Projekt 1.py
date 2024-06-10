@@ -32,49 +32,64 @@ in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.'''
 ]
 
+attempts=3
 separator="-"*40
-user_name=input('username:')
-user_password=input('password:')
 users={'bob':'123','ann':'pass132','mike':'password123','liz':'pass123'}
 
 #Přihlášení
-if users.get(user_name)==user_password:
+while attempts>=0:
+    print(separator)
+    user_name=input('username:')
+    user_password=input('password:')
+    print(separator)
+    if users.get(user_name)==user_password:
+         break
+    elif users.get(user_name)!=user_password:
+         print(f'Invalid login data, try again.You have {attempts} attempts left!')
+         attempts-=1          
+else:
     print(separator,
-          f'Welcome to the app, {user_name} \nWe have 3 texts to be analyzed.',
+          f'unregistered user, terminating the program..',
           separator, sep='\n'
           )
-else:
-    print('unregistered user, terminating the program..')
     exit()
 
-#Výběr textu  
+print(f'Welcome to the app, {user_name} \nWe have 3 texts to be analyzed.',
+          separator, sep='\n'
+          )
+
+#Výběr textu
 roster={}
 while len(roster)<len(TEXTS):
     roster[len(roster)+1]=TEXTS[len(roster)]
-array=len(TEXTS) 
+array=len(TEXTS)
 selection=(input(f'Enter a number btw. 1 and {array} to select: '))
 
-#Zarućení že se jedná jenom o číslo
+#Zaručení že se jedná jenom o číslo
 while not selection.isnumeric():
     selection=input("Input has to be number. Please try again: ")
 
 #Zaručení že číslo je v rozsahu
 while int(selection)>array:
-    selection=input('No text was selected. Please pick number in defined range: ')   
+    selection=input('No text was selected. Please pick number in defined range: ')
 else:
     print(separator)
-    picked_text=roster[int(selection)]
-    text_list=(picked_text.split())
+    #Vytvoření listu z vybraného textu
+    text_list=roster[int(selection)].split()
+    #Odstranění specialních znaků
+    stripped = [''.join(char for char in word if char.isalnum()) for word in text_list]
     capital=0
     upper=0
     lower=0
     numbers=0
     sum_num=0
-    
-for word in text_list:
+
+#Počítání požadovaných hodnot
+for word in stripped:
     if word.isupper() and word.isalpha():
             upper+=1
-    elif word[0].isupper() and word.isalpha():
+            capital+=1
+    elif word.istitle() and word.isalpha():
             capital+=1
     elif word.islower() and word.isalpha():
             lower+=1
@@ -83,7 +98,7 @@ for word in text_list:
             sum_num+=int(word)
 
 #Výpis výsledku
-print(f'There are {len(text_list)} words in the selected text.\n'
+print(f'There are {len(stripped)} words in the selected text.\n'
     f'There are {capital} titlecase words.\n'
     f'There are {upper} uppercase words.\n'
     f'There are {lower} lowercase words.\n'

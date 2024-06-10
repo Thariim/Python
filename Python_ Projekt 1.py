@@ -39,8 +39,8 @@ users={'bob':'123','ann':'pass132','mike':'password123','liz':'pass123'}
 #Přihlášení
 while attempts>=0:
     print(separator)
-    user_name=input('username:')
-    user_password=input('password:')
+    user_name=input('username:').strip()
+    user_password=input('password:').strip()
     print(separator)
     if users.get(user_name)==user_password:
          break
@@ -63,7 +63,7 @@ roster={}
 while len(roster)<len(TEXTS):
     roster[len(roster)+1]=TEXTS[len(roster)]
 array=len(TEXTS)
-selection=(input(f'Enter a number btw. 1 and {array} to select: '))
+selection=input(f'Enter a number btw. 1 and {array} to select: ').strip()
 
 #Zaručení že se jedná jenom o číslo
 while not selection.isnumeric():
